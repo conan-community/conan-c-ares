@@ -76,7 +76,7 @@ main(void)
         return 1;
     }
     //options.sock_state_cb_data;
-    options.sock_state_cb = state_cb;
+    options.sock_state_cb = (ares_sock_state_cb) state_cb;
     optmask |= ARES_OPT_SOCK_STATE_CB;
 
     status = ares_init_options(&channel, &options, optmask);
@@ -90,6 +90,5 @@ main(void)
     wait_ares(channel);
     ares_destroy(channel);
     ares_library_cleanup();
-    printf("fin\n");
     return 0;
 }

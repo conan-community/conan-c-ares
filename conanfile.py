@@ -1,5 +1,5 @@
 import os
-from conans import ConanFile, CMake, tools, AutoToolsBuildEnvironment
+from conans import ConanFile, CMake, tools
 
 
 class CAresConan(ConanFile):
@@ -40,12 +40,18 @@ CONAN_BASIC_SETUP()
         cmake.definitions["CARES_STATIC"] = "ON" if not self.options.shared else "OFF"
         cmake.definitions["CARES_SHARED"] = "ON" if self.options.shared else "OFF"
         cmake.definitions["CARES_BUILD_TESTS"] = "OFF"
+        cmake.definitions["CARES_MSVC_STATIC_RUNTIME"] = "OFF"  # Do not mess with runtime, Conan will.
         cmake.configure(source_folder=self.folder_name)
         cmake.build()
         cmake.install()
 
     def package(self):
-        self.copy("*LICENSE*", dst="")
+        self.copy("*LICENSE*", dst="", keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs.append("cares")
+        if not self.options.shared:
+            self.cpp_info.defines.append("CARES_STATICLIB")
+        if self.settings.os == "Windows":
+            # self.cpp_info.libs[0] += "d"
+            self.cpp_info.libs.append("ws2_32")
