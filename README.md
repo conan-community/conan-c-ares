@@ -20,3 +20,4 @@ If you handle multiple dependencies in your project is better to add a *conanfil
 ## License
 
 [MIT License](LICENSE)
+
