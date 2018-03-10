@@ -2,13 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/socket.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <netdb.h>
 #include <stdarg.h>
 #include <string.h>
 #include <ctype.h>
 #include <unistd.h>
+
+#if !defined(WIN32) || defined(WATT32)
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#endif
 
 static void
 state_cb(void *data, int s, int read, int write)

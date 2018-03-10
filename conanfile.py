@@ -35,7 +35,6 @@ CONAN_BASIC_SETUP()
                               "PROJECT (c-ares C)\n%s" % conan_magic_lines)
 
     def build(self):
-
         self._patch_cmake()
         cmake = CMake(self)
         cmake.definitions["CARES_STATIC"] = "ON" if not self.options.shared else "OFF"
