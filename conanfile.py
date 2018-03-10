@@ -46,7 +46,7 @@ CONAN_BASIC_SETUP()
         cmake.install()
 
     def package(self):
-        self.copy("LICENSE*", dst="")
+        self.copy("*LICENSE*", dst="")
 
     def package_info(self):
         self.cpp_info.libs.append("cares")
