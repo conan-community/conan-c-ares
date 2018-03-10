@@ -4,13 +4,16 @@
 #include <stdarg.h>
 #include <string.h>
 #include <ctype.h>
-#include <unistd.h>
+
 
 #if !defined(WIN32) || defined(WATT32)
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <arpa/inet.h>
+    #include <netdb.h>
+    #include <sys/socket.h>
+    #include <unistd.h>
+#else
+    #include <winsock2.h>
 #endif
 
 static void
