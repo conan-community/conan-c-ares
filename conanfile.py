@@ -10,9 +10,13 @@ class CAresConan(ConanFile):
     description = "A C library for asynchronous DNS requests"
     website = "https://c-ares.haxx.se/"
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False]}
-    default_options = "shared=False"
+    options = {"shared": [True, False], "fPIC": [True, False]}
+    default_options = "shared=False", "fPIC=True"
     generators = "cmake"
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
 
     def configure(self):
         del self.settings.compiler.libcxx
@@ -41,6 +45,8 @@ CONAN_BASIC_SETUP()
         cmake.definitions["CARES_SHARED"] = "ON" if self.options.shared else "OFF"
         cmake.definitions["CARES_BUILD_TESTS"] = "OFF"
         cmake.definitions["CARES_MSVC_STATIC_RUNTIME"] = "OFF"  # Do not mess with runtime, Conan will.
+        if self.settings.os != "Windows":
+            cmake.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = self.options.fPIC
         cmake.configure(source_folder=self.folder_name)
         cmake.build()
         cmake.install()
