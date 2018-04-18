@@ -44,7 +44,7 @@ class CAresConan(ConanFile):
         cmake.install()
 
     def package(self):
-        self.copy("LICENSE*", dst="licenses", keep_path=False)
+        self.copy("*LICENSE.md", src=self.source_folder, dst="licenses", keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
