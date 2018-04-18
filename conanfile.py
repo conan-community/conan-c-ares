@@ -30,7 +30,7 @@ class CAresConan(ConanFile):
         ver = self.version.replace(".", "_")
         tools.get("https://github.com/c-ares/c-ares/archive/cares-%s.tar.gz" % ver)
 
-    def build(self):
+    def cmake_configure(self):
         cmake = CMake(self)
         cmake.definitions["CARES_STATIC"] = not self.options.shared
         cmake.definitions["CARES_SHARED"] = self.options.shared
@@ -40,10 +40,16 @@ class CAresConan(ConanFile):
         if self.settings.os != "Windows":
             cmake.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = self.options.fPIC or self.options.shared
         cmake.configure()
+        return cmake
+
+    def build(self):
+        cmake = self.cmake_configure()
         cmake.build()
         cmake.install()
 
     def package(self):
+        cmake = self.cmake_configure()
+        cmake.install()
         self.copy("*LICENSE.md", src=self.source_folder, dst="licenses", keep_path=False)
 
     def package_info(self):

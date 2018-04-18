@@ -85,14 +85,17 @@ main(void)
     struct ares_options options;
     int optmask = 0;
 
+    #ifdef WIN32
+        WORD wVersionRequested = MAKEWORD(2, 2);
+        WSADATA wsaData;
+        WSAStartup(wVersionRequested, &wsaData);
+    #endif
+
     status = ares_library_init(ARES_LIB_INIT_ALL);
     if (status != ARES_SUCCESS){
         printf("ares_library_init: %s\n", ares_strerror(status));
         return 1;
     }
-    //options.sock_state_cb_data;
-    options.sock_state_cb = (ares_sock_state_cb) state_cb;
-    optmask |= ARES_OPT_SOCK_STATE_CB;
 
     status = ares_init_options(&channel, &options, optmask);
     if(status != ARES_SUCCESS) {
@@ -101,7 +104,6 @@ main(void)
     }
 
     ares_gethostbyname(channel, "google.com", AF_INET, callback, NULL);
-    //ares_gethostbyname(channel, "google.com", AF_INET6, callback, NULL);
     wait_ares(channel);
     ares_destroy(channel);
     ares_library_cleanup();
