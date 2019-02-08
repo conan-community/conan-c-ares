@@ -1,12 +1,22 @@
-[![Download](https://api.bintray.com/packages/conan-community/conan/c-ares%3Aconan/images/download.svg?version=1.14.0%3Astable) ](https://bintray.com/conan-community/conan/c-ares%3Aconan/1.14.0%3Astable/link)
-[![Build Status](https://travis-ci.org/conan-community/conan-c-ares.svg?branch=release%2F1.14.0)](https://travis-ci.org/conan-community/conan-c-ares)
-[![Build status](https://ci.appveyor.com/api/projects/status/github/conan-community/conan-c-ares?svg=true)](https://ci.appveyor.com/project/conan-community/conan-c-ares)
+[![Download](https://api.bintray.com/packages/conan-community/conan/c-ares%3Aconan/images/download.svg) ](https://bintray.com/conan-community/conan/c-ares%3Aconan/_latestVersion)
+[![Build Status Travis](https://travis-ci.org/conan-community/conan-c-ares.svg)](https://travis-ci.org/conan-community/conan-c-ares)
+[![Build Status AppVeyor](https://ci.appveyor.com/api/projects/status/github/conan-community/conan-c-ares?svg=true)](https://ci.appveyor.com/project/ConanCIintegration/conan-c-ares)
 
-# conan-c-ares
+## Conan package recipe for [*c-ares*](https://c-ares.haxx.se/)
 
-![Conan C Ares](logo.png)
+A C library for asynchronous DNS requests
 
-## Conan package for C Ares.
+The packages generated with this **conanfile** can be found on [Bintray](https://bintray.com/conan-community/conan/c-ares%3Aconan).
+
+
+## Issues
+
+If you wish to report an issue or make a request for a package, please do so here:
+
+[Issues Tracker](https://github.com/conan-community/community/issues)
+
+
+## For Users
 
 ### Basic setup
 
@@ -19,19 +29,40 @@ If you handle multiple dependencies in your project is better to add a *conanfil
     [requires]
     c-ares/1.14.0@conan/stable
 
-    [options]
-    c-ares:shared=true # false
-
     [generators]
-    txt
     cmake
 
 Complete the installation of requirements for your project running:
 
-    conan install .
+    $ mkdir build && cd build && conan install ..
 
-Project setup installs the library (and all his dependencies) and generates the files conanbuildinfo.cmake with all the paths and variables that you need to link with your dependencies.
+Note: It is recommended that you run conan install from a build directory and not the root of the project directory.  This is because conan generates *conanbuildinfo* files specific to a single build configuration which by default comes from an autodetected default profile located in ~/.conan/profiles/default .  If you pass different build configuration options to conan install, it will generate different *conanbuildinfo* files.  Thus, they should not be added to the root of the project, nor committed to git.
 
-## License
 
-[MIT License](LICENSE)
+## Build and package
+
+The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  This includes downloading dependencies from "build_requires" and "requires" , and then running the build() method.
+
+    $ conan create . conan/stable
+
+
+### Available Options
+| Option        | Default | Possible Values  |
+| ------------- |:----------------- |:------------:|
+| shared      | False |  [True, False] |
+| fPIC      | True |  [True, False] |
+
+
+## Add Remote
+
+Conan Community has its own Bintray repository, however, we are working to distribute all package in the Conan Center:
+
+    $ conan remote add conan-center "https://conan.bintray.com"
+
+
+## Conan Recipe License
+
+NOTE: The conan recipe license applies only to the files of this recipe, which can be used to build and package c-ares.
+It does *not* in any way apply or is related to the actual software being packaged.
+
+[MIT](LICENSE)
