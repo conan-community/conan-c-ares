@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.1.0)
+
 project(cmake_wrapper)
 
 set(CMAKE_VERBOSE_MAKEFILE TRUE)
