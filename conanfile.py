@@ -14,7 +14,7 @@ class CAresConan(ConanFile):
     homepage = "https://c-ares.haxx.se/"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
-    default_options = "shared=False", "fPIC=True"
+    default_options = {'shared': False, 'fPIC': True}
     exports = "LICENSE"
     exports_sources = "CMakeLists.txt"
     generators = "cmake"
