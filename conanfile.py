@@ -27,7 +27,7 @@ class CAresConan(ConanFile):
         del self.settings.compiler.libcxx
 
     def source(self):
-        sha256 = ""
+        sha256 = "7deb7872cbd876c29036d5f37e30c4cbc3cc068d59d8b749ef85bb0736649f04"
         ver = self.version.replace(".", "_")
         tools.get("https://github.com/c-ares/c-ares/archive/cares-%s.tar.gz" % ver, sha256=sha256)
 
