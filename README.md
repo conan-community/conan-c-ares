@@ -20,14 +20,14 @@ If you wish to report an issue or make a request for a package, please do so her
 
 ### Basic setup
 
-    $ conan install c-ares/1.14.0@conan/stable
+    $ conan install c-ares/1.15.0@conan/stable
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    c-ares/1.14.0@conan/stable
+    c-ares/1.15.0@conan/stable
 
     [generators]
     cmake

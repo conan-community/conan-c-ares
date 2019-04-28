@@ -6,7 +6,7 @@ from conans import ConanFile, CMake, tools
 
 class CAresConan(ConanFile):
     name = "c-ares"
-    version = "1.14.0"
+    version = "1.15.0"
     license = "MIT"
     url = "https://github.com/conan-community/conan-c-ares"
     description = "A C library for asynchronous DNS requests"
@@ -14,7 +14,7 @@ class CAresConan(ConanFile):
     homepage = "https://c-ares.haxx.se/"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
-    default_options = "shared=False", "fPIC=True"
+    default_options = {'shared': False, 'fPIC': True}
     exports = "LICENSE"
     exports_sources = "CMakeLists.txt"
     generators = "cmake"
@@ -27,8 +27,9 @@ class CAresConan(ConanFile):
         del self.settings.compiler.libcxx
 
     def source(self):
+        sha256 = "7deb7872cbd876c29036d5f37e30c4cbc3cc068d59d8b749ef85bb0736649f04"
         ver = self.version.replace(".", "_")
-        tools.get("https://github.com/c-ares/c-ares/archive/cares-%s.tar.gz" % ver)
+        tools.get("https://github.com/c-ares/c-ares/archive/cares-%s.tar.gz" % ver, sha256=sha256)
 
     def cmake_configure(self):
         cmake = CMake(self)

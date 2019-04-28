@@ -7,4 +7,4 @@ set(CMAKE_VERBOSE_MAKEFILE TRUE)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-add_subdirectory(c-ares-cares-1_14_0)
+add_subdirectory(c-ares-cares-1_15_0)
