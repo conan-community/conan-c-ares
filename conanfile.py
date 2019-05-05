@@ -10,6 +10,7 @@ class CAresConan(ConanFile):
     license = "MIT"
     url = "https://github.com/conan-community/conan-c-ares"
     description = "A C library for asynchronous DNS requests"
+    topics = ("conan", "c-ares", "dns")
     author = "lasote"
     homepage = "https://c-ares.haxx.se/"
     settings = "os", "compiler", "build_type", "arch"
